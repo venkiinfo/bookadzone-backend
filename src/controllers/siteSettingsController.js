@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");  
+const SiteSettings = require("../models/siteSettingsModel");
 const siteSettingsService = require("../services/siteSettingsService");
 
 class SiteSettingsController {
@@ -7,32 +8,35 @@ class SiteSettingsController {
             const siteSettings = await siteSettingsService.getSiteSettings();
             res.status(200).json({ data: siteSettings });
         } catch (err) {
-            res.status(500).json({ error: err.message });
+            res.status(500).json({ message: err.message });
         }
     }
-
-    updateSettings = async (req, res, updateFunction, settingType) => {
+    async updateSiteSettings(req, res) {
         try {
             const { id } = req.params;
-            
+            const { type } = req.query;
+    
             if (!mongoose.Types.ObjectId.isValid(id)) {
-                return res.status(400).json({ error: "Invalid ID format" });
+                return res.status(400).json({ message: "Invalid site settings ID format." });
             }
-
-            const updatedSettings = await updateFunction(id, req.body);
-            if (!updatedSettings) {
-                return res.status(404).json({ message: `${settingType} settings not found` });
+    
+            const validTypes = Object.keys(SiteSettings.schema.obj);
+            if (!type || !validTypes.includes(type)) {
+                return res.status(400).json({ message: "Invalid settings type"});
             }
-
-            res.status(200).json({ message: `${settingType} settings updated`, data: updatedSettings });
+    
+            const siteSettings = await siteSettingsService.updateSiteSettings(type, id, req.body);
+            if (!siteSettings) {
+                return res.status(404).json({ message: "Site settings not found. Please check the ID." });
+            }
+    
+            res.status(200).json({ message: "Site settings updated successfully.", data: siteSettings });
         } catch (err) {
-            res.status(500).json({ error: err.message });
+            console.error("Error updating site settings:", err);
+            res.status(500).json({ message: "An unexpected error occurred. Please try again later." });
         }
-    };
-
-    updateGeneralSettings = (req, res) => this.updateSettings(req, res, siteSettingsService.updateGeneralSettings, "General");
-    updateContactSettings = (req, res) => this.updateSettings(req, res, siteSettingsService.updateContactSettings, "Contact");
-    updateEmailConfig = (req, res) => this.updateSettings(req, res, siteSettingsService.updateEmailConfig, "Email");
+    }
+    
 }
 
 module.exports = new SiteSettingsController();
