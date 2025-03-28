@@ -1,9 +1,17 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
+const helmet = require('helmet');
+const { authenticate } = require("./src/middleware/authentication");
 
 const app = express();
 app.use(express.json());
+app.use(helmet());
+
+app.use(authenticate);
+
+// Middleware to parse x-www-form-urlencoded (form data)
+app.use(express.urlencoded({ extended: true }));
 
 require('./src/routes')(app);
 
