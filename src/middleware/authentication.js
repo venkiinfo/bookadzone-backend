@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const Setting = require('../models/settingModel');
-const { HTTP_STATUS_CODE } = require('../utils/httpResponse');
+const { HTTP_STATUS_CODE, HTTP_RESPONSE } = require('../utils/httpResponse');
 
 const excludedPath = [
     'auth/login',
