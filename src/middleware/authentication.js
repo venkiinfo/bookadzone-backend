@@ -20,7 +20,6 @@ const authenticate = async (req, res, next) => {
             if (!accessToken) return res.status(HTTP_STATUS_CODE.FORBIDDEN).json({ status: HTTP_RESPONSE.FAIL, message: 'Access Denied' });
             try {
                 const result = await jwt.verify(accessToken, process.env.JWT_SECRET);
-
                 if (!result) {
                     return res.status(HTTP_STATUS_CODE.FORBIDDEN).json({ status: HTTP_RESPONSE.FAIL, message: 'Invalid Token. Please contact an admin' });
                 }

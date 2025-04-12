@@ -5,5 +5,4 @@ class AuthenticationService {
         return await authenticationRepository.authLogin(data);
     }
 }
-
 module.exports = new AuthenticationService();

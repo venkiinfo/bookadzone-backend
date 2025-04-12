@@ -3,8 +3,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const helmet = require('helmet');
 const { authenticate } = require("./src/middleware/authentication");
-
 const app = express();
+const path = require("path");
+
 app.use(express.json());
 app.use(helmet());
 
@@ -14,6 +15,7 @@ app.use(authenticate);
 app.use(express.urlencoded({ extended: true }));
 
 require('./src/routes')(app);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 mongoose
     .connect(process.env.MONGO_URI)
