@@ -5,6 +5,7 @@ dotenv.config();
 const seedSiteSettings = require("./siteSettingsSeeder");
 const seedFaqs = require("./faqSeeder");
 const settings = require("./settings");
+const seedPages = require("./pagesSeeder")
 
 const seedAll = async () => {
     try {
@@ -18,6 +19,7 @@ const seedAll = async () => {
         await seedSiteSettings(); 
         await seedFaqs(); 
         await settings(); 
+        await seedPages();
 
         console.log("All seeders executed successfully");
         mongoose.connection.close();

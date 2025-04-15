@@ -16,7 +16,7 @@ const authenticate = async (req, res, next) => {
         if (excludedPath.includes(apiPath)) {
             return next();
         } else {
-            const accessToken = req.headers['authorization'];
+            // const accessToken = req.headers['authorization'];
             if (!accessToken) return res.status(HTTP_STATUS_CODE.FORBIDDEN).json({ status: HTTP_RESPONSE.FAIL, message: 'Access Denied' });
             try {
                 const result = await jwt.verify(accessToken, process.env.JWT_SECRET);
