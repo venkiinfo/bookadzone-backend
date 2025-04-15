@@ -4,6 +4,7 @@ const siteSettingsService = require("../services/siteSettingsService");
 
 class SiteSettingsController {
     async getSiteSettings(req, res) {
+        console.log("inside get sitesettings")
         try {
             const siteSettings = await siteSettingsService.getSiteSettings();
             res.status(200).json({ data: siteSettings });
@@ -11,11 +12,11 @@ class SiteSettingsController {
             res.status(500).json({ message: err.message });
         }
     }
-    async updateSiteSettings(req, res) {
+    async updateSiteSettings(req, res){
         try {
             const { id } = req.params;
             const { type } = req.query;
-    
+        
             if (!mongoose.Types.ObjectId.isValid(id)) {
                 return res.status(400).json({ message: "Invalid site settings ID format." });
             }
