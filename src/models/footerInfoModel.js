@@ -8,6 +8,7 @@ const schema = new mongoose.Schema(
         socialMediaLinks : { type: String, required: true },
         googlePlaystoreLink: { type: String, required: true },
         appleAppstoreLink: { type: String, required: true },  
+        status: { type: String, enum: ["active", "inactive"], default: "active" },
         isDeleted: { type: Boolean, default: false },
     },
     { timestamps: true }
