@@ -1,8 +1,12 @@
 const newsletterRepository = require("../repositories/newsletterRepository");
+const { writeTemplateFile, updateTemplateFile } = require("../utils/creatingFile");
 
 class NewsletterService {
     async createNewsletter(data) {
-        return await newsletterRepository.createNewsletter(data);
+        const filePath = writeTemplateFile(data.slug, data.description);
+        data.path = filePath;
+        const newsletter = await newsletterRepository.createNewsletter(data);
+        return newsletter;
     }
 
     async getAllNewsletters() {
@@ -14,7 +18,10 @@ class NewsletterService {
     }
 
     async updateNewsletter(id, data) {
-        return await newsletterRepository.updateNewsletter(id, data);
+        const filePath = updateTemplateFile(data.slug, data.description);
+        data.path = filePath;
+        const updated = await newsletterRepository.updateNewsletter(id, data);
+        return updated;
     }
 
     async softDeleteNewsletter(id) {

@@ -1,32 +1,35 @@
 const mongoose = require("mongoose");
 const Newsletter = require("../models/newsletterModel");
 
-const seedNewsletter = async () => {
+const seedNewsletters = async () => {
     try {
-        await Newsletter.deleteMany();
+        await Newsletter.deleteMany(); // Clear existing newsletters
 
         const newsletters = [
             {
-                name: "Node.js Weekly",
-                slug: "nodejs-weekly",
-                subject: "Learn Node.js Basics",
-                description: "A weekly newsletter covering Node.js concepts and tutorials.",
+                name: "Weekly Tech Update",
+                slug: "weekly-tech-update",
+                subject: "Latest in Tech This Week",
+                description: "<p>Stay updated with the most recent developments in technology!</p>",
+                path: "/newsletters/weekly-tech-update",
                 status: "active",
                 isDeleted: false
             },
             {
-                name: "MongoDB Insights",
-                slug: "mongodb-insights",
-                subject: "Deep Dive into MongoDB",
-                description: "Insights and tips on using MongoDB effectively.",
+                name: "Developer Digest",
+                slug: "developer-digest",
+                subject: "Top Dev Resources",
+                description: "<p>A curated list of the best developer tools and resources.</p>",
+                path: "/newsletters/developer-digest",
                 status: "active",
                 isDeleted: false
             },
             {
-                name: "Express Essentials",
-                slug: "express-essentials",
-                subject: "Understanding Express.js",
-                description: "Everything you need to know about building with Express.",
+                name: "Startup Spotlight",
+                slug: "startup-spotlight",
+                subject: "Emerging Startups You Should Know",
+                description: "<p>Discover the latest startups making waves in the industry.</p>",
+                path: "/newsletters/startup-spotlight",
                 status: "inactive",
                 isDeleted: false
             }
@@ -39,4 +42,4 @@ const seedNewsletter = async () => {
     }
 };
 
-module.exports = seedNewsletter;
+module.exports = seedNewsletters;

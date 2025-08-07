@@ -6,6 +6,7 @@ const newsletterSchema = new mongoose.Schema(
         slug: { type: String, required: true },
         subject: { type: String, required: true },
         description: { type: String, required: true },
+        path: { type: String, required: true },
         status: { type: String, enum: ["active", "inactive"], default: "active" },
         isDeleted: { type: Boolean, default: false },
     },
