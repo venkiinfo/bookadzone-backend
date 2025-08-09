@@ -6,6 +6,7 @@ const seedSiteSettings = require("./siteSettingsSeeder");
 const seedFaqs = require("./faqSeeder");
 const settings = require("./settings");
 const seedPages = require("./pagesSeeder")
+const seedAssignTeam = require("./assignTeamSeeder")
 
 const seedAll = async () => {
     try {
@@ -20,6 +21,7 @@ const seedAll = async () => {
         await seedFaqs(); 
         await settings(); 
         await seedPages();
+        await seedAssignTeam();
 
         console.log("All seeders executed successfully");
         mongoose.connection.close();

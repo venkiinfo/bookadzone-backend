@@ -4,6 +4,9 @@ module.exports = function (app) {
     app.use(BaseUrl + "auth", require("../routes/authenticationRoutes"));
     app.use(BaseUrl + "site-settings", require("../routes/siteSettingsRoutes"));
     app.use(BaseUrl + "pages", require("../routes/pagesRoutes"));
+    app.use(BaseUrl + "assign-teams", require("../routes/assignTeamRoutes"));
+
+    
 
 }
 
