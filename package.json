@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nodemon server.ts",
      "test": "jest --detectOpenHandles --forceExit --runInBand",
-    "coverage": "jest --coverage",
+    "coverage": "jest --coverage --detectOpenHandles --forceExit --runInBand",
     "seed": "ts-node src/seeders/index.ts",
     "validate:openapi": "swagger-cli validate openapi.yaml"
   },
