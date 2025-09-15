@@ -22,7 +22,12 @@ export const authenticate = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    // Allow excluded paths without authentication
+    // Exclude /api-docs and its subpaths from authentication
+    if (req.path.startsWith("/api-docs")) {
+      return next();
+    }
+
+    // Allow excluded auth paths without authentication
     const apiPath = req.path.replace("/api/v1/", "");
     if (excludedPaths.includes(apiPath)) {
       return next();
@@ -109,7 +114,6 @@ export const authenticate = async (
       next();
     } catch (error: any) {
       console.error("JWT Verification Error:", error.message, error.stack);
-
       if (error.name === "TokenExpiredError") {
         res.status(HTTP_STATUS_CODE.FORBIDDEN).json({
           status: HTTP_RESPONSE.FAIL,
