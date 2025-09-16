@@ -23,7 +23,7 @@ export const authenticate = async (
 ): Promise<void> => {
   try {
     // Exclude /api-docs and its subpaths from authentication
-    if (req.path.startsWith("/api-docs")) {
+     if (req.path.startsWith("/api-docs") || req.path === "/health") {
       return next();
     }
 
